@@ -9,6 +9,7 @@ export class CarsController extends BaseController {
         this.router
             .post('', this.createCar)
             .get('', this.getCars)
+            .get('/:carId', this.getOneCar)
             .delete('/:carId', this.removeCar)
     }
 
@@ -16,6 +17,15 @@ export class CarsController extends BaseController {
         try {
             const cars = await carsService.getCars()
             response.send(cars)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getOneCar(request, response, next) {
+        try {
+            const car = await carsService.getOneCar(request.params.carId)
+            response.send(car)
         } catch (error) {
             next(error)
         }

@@ -2,6 +2,10 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest } from "../utils/Errors.js"
 
 class CarsService {
+    async getOneCar(carId) {
+        const car = await dbContext.Cars.findById(carId)
+        return car
+    }
     async createCar(carData) {
         const car = await dbContext.Cars.create(carData)
         return car
